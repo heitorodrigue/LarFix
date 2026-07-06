@@ -1,0 +1,6 @@
+@LarFix.Api_HostAddress = http://localhost:5285
+
+GET {{LarFix.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
