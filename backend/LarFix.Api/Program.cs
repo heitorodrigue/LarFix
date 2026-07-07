@@ -11,6 +11,8 @@ builder.Services.AddDbContext<LarFixDbContext>(options => options.UseSqlite(buil
 
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 
+builder.Services.AddScoped<ITransacaoService, TransacaoService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
