@@ -12,4 +12,6 @@ public interface IPessoaService
     /// </summary>
     Task<IEnumerable<PessoaResponse>> ListarAsync();
     Task<bool> ExcluirAsync(int id);
+
+    Task<ResumoGeralResponse> ObterResumoAsync();
 }

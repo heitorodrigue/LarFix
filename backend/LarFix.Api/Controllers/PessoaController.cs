@@ -41,4 +41,12 @@ public class PessoaController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpGet("resumo")]
+    public async Task<ActionResult> ObterResumo()
+    {
+        var resumo = await _pessoaService.ObterResumoAsync();
+
+        return Ok(resumo);
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using LarFix.Api.Data;
 using LarFix.Api.DTOs.Requests;
 using LarFix.Api.DTOs.Responses;
+using LarFix.Api.Enums;
 using LarFix.Api.Models;
 using LarFix.Api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -58,5 +59,43 @@ public class PessoaService : IPessoaService
                 Idade = p.Idade
             })
             .ToListAsync();
+    }
+
+    public async Task<ResumoGeralResponse> ObterResumoAsync()
+    {
+        var pessoas = await _context.Pessoas
+            .Include(p => p.Transacoes)
+            .ToListAsync();
+
+        var resumoPessoas = pessoas.Select(p => new PessoaResumoResponse
+        {
+            Id = p.Id,
+            Nome = p.Nome,
+
+            TotalReceitas = p.Transacoes
+                .Where(t => t.Tipo == TipoTransacao.Receita)
+                .Sum(t => t.Valor),
+
+            TotalDespesas = p.Transacoes
+                .Where(t => t.Tipo == TipoTransacao.Despesa)
+                .Sum(t => t.Valor),
+
+            // Regra de negócio: saldo = receitas - despesas.
+            Saldo = p.Transacoes
+                .Where(t => t.Tipo == TipoTransacao.Receita)
+                .Sum(t => t.Valor)
+                -
+                p.Transacoes
+                .Where(t => t.Tipo == TipoTransacao.Despesa)
+                .Sum(t => t.Valor)
+        }).ToList();
+
+        return new ResumoGeralResponse
+        {
+            Pessoas = resumoPessoas,
+            TotalReceitas = resumoPessoas.Sum(p => p.TotalReceitas),
+            TotalDespesas = resumoPessoas.Sum(p => p.TotalDespesas),
+            Saldo = resumoPessoas.Sum(p => p.Saldo)
+        };
     }
 }
