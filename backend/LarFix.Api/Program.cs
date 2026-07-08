@@ -1,7 +1,8 @@
 using LarFix.Api.Data;
-using Microsoft.EntityFrameworkCore;
+using LarFix.Api.Middleware;
 using LarFix.Api.Services;
 using LarFix.Api.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
