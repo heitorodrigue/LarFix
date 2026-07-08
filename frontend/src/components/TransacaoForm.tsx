@@ -43,12 +43,6 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
     }
 
     try {
-        console.log({
-  descricao,
-  valor: Number(valor),
-  tipo,
-  pessoaId: Number(pessoaId),
-});
       await transacaoService.criar({
         descricao,
         valor: Number(valor),
