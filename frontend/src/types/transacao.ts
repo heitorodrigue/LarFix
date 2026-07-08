@@ -1,7 +1,9 @@
+export type TipoTransacao = "Receita" | "Despesa";
+
 export interface TransacaoCreateRequest {
   descricao: string;
   valor: number;
-  tipo: string;
+  tipo: TipoTransacao;
   pessoaId: number;
 }
 
@@ -9,6 +11,6 @@ export interface TransacaoResponse {
   id: number;
   descricao: string;
   valor: number;
-  tipo: string;
+  tipo: TipoTransacao;
   pessoaId: number;
 }

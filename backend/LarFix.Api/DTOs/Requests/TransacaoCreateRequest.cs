@@ -8,7 +8,7 @@ public class TransacaoCreateRequest
     [StringLength(150)]
     public string Descricao { get; set; } = string.Empty;
 
-    [Range(typeof(decimal), "0.01", "999999999")]
+    [Range(typeof(decimal), "0,01", "999999999")]
     public decimal Valor { get; set; }
 
     [Required(ErrorMessage = "O tipo da transação é obrigatório.")]

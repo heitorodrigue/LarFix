@@ -1,5 +1,4 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
 import { pessoaService } from "../services/pessoaService";
 
 interface PessoaFormProps {
@@ -11,7 +10,7 @@ export function PessoaForm({ onCriado }: PessoaFormProps) {
   const [idade, setIdade] = useState("");
   const [erro, setErro] = useState("");
 
-  async function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
 
     if (!nome || !idade) {

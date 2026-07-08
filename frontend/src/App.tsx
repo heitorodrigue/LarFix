@@ -1,7 +1,7 @@
-import { Pessoas } from "./pages/Pessoas";
+import { Transacoes } from "./pages/Transacoes";
 
 function App() {
-  return <Pessoas  />;
+  return <Transacoes />;
 }
 
 export default App;
