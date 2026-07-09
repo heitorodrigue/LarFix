@@ -130,8 +130,10 @@ dotnet run
 
 A API será iniciada em:
 
-````
+```
 https://localhost:5285
+```
+
 ---
 
 ## Frontend
@@ -142,7 +144,7 @@ cd frontend
 npm install
 
 npm run dev
-````
+```
 
 A aplicação será iniciada em:
 
