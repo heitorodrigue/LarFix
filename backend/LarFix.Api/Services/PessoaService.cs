@@ -67,27 +67,24 @@ public class PessoaService : IPessoaService
             .Include(p => p.Transacoes)
             .ToListAsync();
 
-        var resumoPessoas = pessoas.Select(p => new PessoaResumoResponse
+        var resumoPessoas = pessoas.Select(p =>
         {
-            Id = p.Id,
-            Nome = p.Nome,
-
-            TotalReceitas = p.Transacoes
+            var totalReceitas = p.Transacoes
                 .Where(t => t.Tipo == TipoTransacao.Receita)
-                .Sum(t => t.Valor),
+                .Sum(t => t.Valor);
 
-            TotalDespesas = p.Transacoes
+            var totalDespesas = p.Transacoes
                 .Where(t => t.Tipo == TipoTransacao.Despesa)
-                .Sum(t => t.Valor),
+                .Sum(t => t.Valor);
 
-            // Regra de negócio: saldo = receitas - despesas.
-            Saldo = p.Transacoes
-                .Where(t => t.Tipo == TipoTransacao.Receita)
-                .Sum(t => t.Valor)
-                -
-                p.Transacoes
-                .Where(t => t.Tipo == TipoTransacao.Despesa)
-                .Sum(t => t.Valor)
+            return new PessoaResumoResponse
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                TotalReceitas = totalReceitas,
+                TotalDespesas = totalDespesas,
+                Saldo = totalReceitas - totalDespesas
+            };
         }).ToList();
 
         return new ResumoGeralResponse
