@@ -44,6 +44,9 @@ public class ExceptionMiddleware
             Message = exception.Message
         };
 
-        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response,new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        }));
     }
 }

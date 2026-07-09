@@ -3,6 +3,7 @@ import { pessoaService } from "../services/pessoaService";
 import { transacaoService } from "../services/transacaoService";
 import type { PessoaResponse } from "../types/pessoa";
 import type { TipoTransacao } from "../types/transacao";
+import axios from "axios";
 
 interface TransacaoFormProps {
   onCriado: () => void;
@@ -43,7 +44,9 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
     }
 
     try {
-      await transacaoService.criar({
+        setErro("");
+        
+        await transacaoService.criar({
         descricao,
         valor: Number(valor),
         tipo,
@@ -56,9 +59,18 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
       setErro("");
 
       onCriado();
-    } catch {
-      setErro("Não foi possível cadastrar a transação.");
-    }
+    } catch (error) {
+  console.log(error);
+
+  if (axios.isAxiosError(error)) {
+    setErro(
+      error.response?.data?.message ??
+      "Não foi possível cadastrar a transação."
+    );
+  } else {
+    setErro("Não foi possível cadastrar a transação.");
+  }
+}
   }
 
   return (
