@@ -41,7 +41,11 @@ export function Transacoes() {
       <h1>Transações</h1>
 
       <TransacaoForm onCriado={() => setRecarregar((n) => n + 1)} />
-
+      
+      <h2 style={{ color: "gray", marginTop: "20px", marginBottom: "10px" }}>
+        Histórico
+      </h2>
+      
       {erro && <p>{erro}</p>}
 
       {carregando && <p>Carregando...</p>}
@@ -51,14 +55,32 @@ export function Transacoes() {
       )}
 
       {!carregando && !erro && (
-        <ul>
-          {transacoes.map((transacao) => (
-            <li key={transacao.id}>
-              {transacao.descricao} - R$ {transacao.valor.toFixed(2)} -{" "}
-              {transacao.tipo}
-            </li>
-          ))}
-        </ul>
+       <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Tipo</th>
+              <th>Pessoa</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {transacoes.map((transacao) => (
+              <tr key={transacao.id}>
+                <td>{transacao.descricao}</td>
+                <td>
+                  {transacao.valor.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </td>
+                <td>{transacao.tipo}</td>
+                <td>{transacao.pessoaNome}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

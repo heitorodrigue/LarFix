@@ -12,7 +12,7 @@ interface TransacaoFormProps {
 export function TransacaoForm({ onCriado }: TransacaoFormProps) {
   const [descricao, setDescricao] = useState("");
   const [valor, setValor] = useState("");
-  const [tipo, setTipo] = useState<TipoTransacao>("Despesa");
+  const [tipo, setTipo] = useState<TipoTransacao | "">("");
   const [pessoaId, setPessoaId] = useState("");
 
   const [pessoas, setPessoas] = useState<PessoaResponse[]>([]);
@@ -23,10 +23,6 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
       try {
         const resultado = await pessoaService.listar();
         setPessoas(resultado);
-
-        if (resultado.length > 0) {
-          setPessoaId(resultado[0].id.toString());
-        }
       } catch {
         setErro("Não foi possível carregar as pessoas.");
       }
@@ -38,7 +34,7 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
 
-    if (!descricao || !valor || !pessoaId) {
+    if (!descricao || !valor || !tipo || !pessoaId) {
       setErro("Preencha todos os campos.");
       return;
     }
@@ -55,7 +51,8 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
 
       setDescricao("");
       setValor("");
-      setTipo("Despesa");
+      setTipo("");
+      setPessoaId("");
       setErro("");
 
       onCriado();
@@ -75,36 +72,47 @@ export function TransacaoForm({ onCriado }: TransacaoFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Nova transação</h3>
+      <h3>Cadastrar transação</h3>
 
-      {erro && <p>{erro}</p>}
+      {erro && <p className="erro">{erro}</p>}
 
+      <label htmlFor="descricao">Descrição</label>
       <input
-        placeholder="Descrição"
+        id="descricao"
+        placeholder="Digite a descrição"
         value={descricao}
         onChange={(e) => setDescricao(e.target.value)}
       />
 
+      <label htmlFor="valor">Valor</label>
       <input
+        id="valor"
         type="number"
         step="0.01"
-        placeholder="Valor"
+        placeholder="Digite o valor"
         value={valor}
         onChange={(e) => setValor(e.target.value)}
       />
 
+      <label htmlFor="tipo">Tipo</label>
       <select
+        id="tipo"
         value={tipo}
         onChange={(e) => setTipo(e.target.value as TipoTransacao)}
       >
+        <option value="">Selecione o tipo</option>
         <option value="Despesa">Despesa</option>
         <option value="Receita">Receita</option>
       </select>
 
+      <label htmlFor="pessoa">Pessoa</label>
       <select
+        id="pessoa"
         value={pessoaId}
         onChange={(e) => setPessoaId(e.target.value)}
       >
+        <option value="">Selecione uma pessoa</option>
+
         {pessoas.map((pessoa) => (
           <option key={pessoa.id} value={pessoa.id}>
             {pessoa.nome}

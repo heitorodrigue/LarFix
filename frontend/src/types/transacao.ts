@@ -13,4 +13,5 @@ export interface TransacaoResponse {
   valor: number;
   tipo: TipoTransacao;
   pessoaId: number;
+  pessoaNome: string;
 }

@@ -52,9 +52,7 @@ export function Pessoas() {
 
   return (
     <div>
-      <h1>LarFix</h1>
-
-      <h2>Pessoas</h2>
+      <h1>Pessoas</h1>
 
       <PessoaForm onCriado={carregarPessoas} />
 
@@ -67,16 +65,29 @@ export function Pessoas() {
       )}
 
       {!carregando && !erro && (
-        <ul>
+       <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
           {pessoas.map((pessoa) => (
-            <li key={pessoa.id}>
-              {pessoa.nome} - {pessoa.idade} anos
-              <button onClick={() => excluirPessoa(pessoa.id)}>
-                Excluir
-              </button>
-            </li>
+            <tr key={pessoa.id}>
+              <td>{pessoa.nome}</td>
+              <td>{pessoa.idade} anos</td>
+              <td>
+                <button onClick={() => excluirPessoa(pessoa.id)}>
+                  Excluir
+                </button>
+              </td>
+            </tr>
           ))}
-        </ul>
+        </tbody>
+      </table>
       )}
     </div>
   );

@@ -13,4 +13,6 @@ public class TransacaoResponse
     public TipoTransacao Tipo { get; set; }
 
     public int PessoaId { get; set; }
+
+    public string PessoaNome { get; set; } = string.Empty;
 }

@@ -9,18 +9,40 @@ function App() {
   const [pagina, setPagina] = useState<Pagina>("pessoas");
 
   return (
-    <div>
-      <nav>
-        <button onClick={() => setPagina("pessoas")}>Pessoas</button>
-        <button onClick={() => setPagina("transacoes")}>Transações</button>
-        <button onClick={() => setPagina("resumo")}>Resumo</button>
+   <div className="app">
+      <header className="header">
+        <h1>LarFix</h1>
+        <p>Controle de Gastos Residenciais</p>
+      </header>
+
+      <nav className="menu">
+        <button
+          className={pagina === "pessoas" ? "active" : ""}
+          onClick={() => setPagina("pessoas")}
+        >
+          Pessoas
+        </button>
+
+        <button
+          className={pagina === "transacoes" ? "active" : ""}
+          onClick={() => setPagina("transacoes")}
+        >
+          Transações
+        </button>
+
+        <button
+          className={pagina === "resumo" ? "active" : ""}
+          onClick={() => setPagina("resumo")}
+        >
+          Resumo
+        </button>
       </nav>
 
-      <hr />
-
-      {pagina === "pessoas" && <Pessoas />}
-      {pagina === "transacoes" && <Transacoes />}
-      {pagina === "resumo" && <Resumo />}
+     <main className="content">
+        {pagina === "pessoas" && <Pessoas />}
+        {pagina === "transacoes" && <Transacoes />}
+        {pagina === "resumo" && <Resumo />}
+      </main>
     </div>
   );
 }

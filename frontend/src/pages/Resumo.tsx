@@ -39,18 +39,30 @@ export function Resumo() {
 
   return (
     <div>
-      <h2>Resumo Financeiro</h2>
+      <h1>Resumo Financeiro</h1>
 
       <h3>Totais Gerais</h3>
 
-      <p>Receitas: R$ {formatarMoeda(resumo.totalReceitas)}</p>
-      <p>Despesas: R$ {formatarMoeda(resumo.totalDespesas)}</p>
-      <p>Saldo: R$ {formatarMoeda(resumo.saldo)}</p>
+    <div className="cards-resumo">
 
-      <hr />
+      <div className="card-resumo receita">
+        <span>Receitas</span>
+        <strong>{formatarMoeda(resumo.totalReceitas)}</strong>
+      </div>
 
-      <h3>Por Pessoa</h3>
+      <div className="card-resumo despesa">
+        <span>Despesas</span>
+        <strong>{formatarMoeda(resumo.totalDespesas)}</strong>
+      </div>
 
+      <div className="card-resumo saldo">
+        <span>Saldo</span>
+        <strong>{formatarMoeda(resumo.saldo)}</strong>
+      </div>
+
+    </div>
+
+      <h3>Resumo por Pessoa</h3>
       <table>
         <thead>
           <tr>

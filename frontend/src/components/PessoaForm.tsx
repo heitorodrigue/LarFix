@@ -36,18 +36,22 @@ export function PessoaForm({ onCriado }: PessoaFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Nova pessoa</h3>
+      <h3>Cadastrar pessoa</h3>
 
-      {erro && <p>{erro}</p>}
+      {erro && <p className="erro">{erro}</p>}
 
+      <label htmlFor="nome">Nome</label>
       <input
-        placeholder="Nome"
+        id="nome"
+        placeholder="Digite o nome"
         value={nome}
         onChange={(e) => setNome(e.target.value)}
       />
-
+      
+      <label htmlFor="idade">Idade</label>
       <input
-        placeholder="Idade"
+        id="idade"
+        placeholder="Digite a idade"
         type="number"
         value={idade}
         onChange={(e) => setIdade(e.target.value)}
