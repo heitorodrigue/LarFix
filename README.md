@@ -18,7 +18,7 @@ O projeto permite cadastrar pessoas, registrar receitas e despesas e visualizar 
 
 ## Resumo Financeiro
 
-![Tela de Resumo](assets/Resumo.png)
+![Tela de Resumo](assets/Resumos.png)
 
 ---
 
