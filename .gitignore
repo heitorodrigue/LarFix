@@ -6,6 +6,11 @@
 **/bin/
 **/obj/
 
+# Banco de dados SQLite
+*.db
+*.db-shm
+*.db-wal
+
 # Node.js
 **/node_modules/
 **/dist/
