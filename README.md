@@ -132,9 +132,6 @@ A API será iniciada em:
 
 ````
 https://localhost:5285
-
-(ajuste conforme a porta configurada no seu projeto).
-
 ---
 
 ## Frontend
